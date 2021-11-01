@@ -1,19 +1,17 @@
-fetch("/api/projects")
-.then(response => response.json())
-.then(({ projects }) => {
-    const projectsWrapperDiv = document.getElementById("projects-wrapper");
-    console.log(projectsWrapperDiv);
+const router = require("express").Router();
 
-    projects.map(project => { 
-        const projectDiv = document.createElement("div");
-        projectDiv.innerHTML = `
-            <h3>${escapeHTML(project.name)}</h3>
-            <p>Category: ${escapeHTML(project.category)}</p>
-            <p>Technologies: ${escapeHTML(project.technologies.join(", "))}</p>
-            <p>Links: ....</p>
-        `;
-        
-        projectsWrapperDiv.appendChild(projectDiv);
+const projects = [
+    { name: "Node.js Recap", category: "Node.js", technologies: ["Node.js", "Html", "CSS"] },
+    { name: "Nodefolio", category: "Node.js", technologies: ["Node.js", "Html", "CSS"] },
+    { name: "Adventure XP", category: "Java", technologies: ["Java", "Thymeleaf", "CSS", "MySQL"] }
+];
 
-    });
+
+router.get("/api/projects", (req, res) => {
+    res.send({ projects });
 });
+
+
+module.exports = {
+    router
+};
